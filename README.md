@@ -1,81 +1,96 @@
-DXA Analysis Automation
-  This script automates most of the sub-points of the DXA Analysis done by G5. Typically done by hand, the DXA consists of tests to, as objectively as possible, score the online presence of a business. 
+# DXA Analysis Automation
+
+  This script automates most of the sub-points of the DXA Analysis done by G5. Typically done by hand, the DXA consists of tests to, as objectively as possible, score the online presence of a business.
   The results are typically used in a sales environment to compare current online performance of a prospective client to future online performance given a relationship with G5.
   The value behind the automation of this tool emanates from two places where human evaluations fall short: speed, and consistency. Not only does this tool grade faster than a human would, but it removes almost all subjectivity from the pre-existing analysis.
 
-Directions to Run:
+## Directions to Run:
+
   1. Download Ruby (follow the directions on https://www.ruby-lang.org/en/documentation/installation/). For more info on Rubygems, or what a gem even is, go to (http://guides.rubygems.org/).
+
   2. Figure out how to install gems given the operating system you are using. In OSX, the command to install a gem is “sudo gem install <gem_name>”. In Windows, gems can be installed using a utility called RubyInstaller (http://rubyinstaller.org/).
+
   3. Download each of the following:
-    Rubygems (https://github.com/rubygems/rubygems)
-    Selenium-WebDriver (https://rubygems.org/gems/selenium-webdriver)
-    Nokogiri (https://rubygems.org/gems/nokogiri/)
-    Open URI Redirections (https://rubygems.org/gems/open_uri_redirections)
-    Algorithms (https://rubygems.org/gems/algorithms)
-    JSON (https://rubygems.org/gems/json/versions/1.8.3)
+
+    [Rubygems](https://github.com/rubygems/rubygems)
+    [Selenium-WebDriver](https://rubygems.org/gems/selenium-webdriver)
+    [Nokogiri](https://rubygems.org/gems/nokogiri/)
+    [Open URI Redirections](https://rubygems.org/gems/open_uri_redirections)
+    [Algorithms](https://rubygems.org/gems/algorithms)
+    [JSON](https://rubygems.org/gems/json/versions/1.8.3)
+
   4. Register for the Google Developers Console, and make two projects—one for the Google Page Speed Tool, and the other for the Google+ API. Then, for each project, go to the credentials section, and copy each API key. Paste the PageSpeed API key into the file dxaAutomation/keys/gPageSpdAPIKey.txt, and the Google+ API key into the file dxaAutomation/keys/gPlusAPIKey.txt as raw strings (no punctuation, newlines, or special characters).
+
   5. Clone the dxaAutomation BitBucket repo onto your local terminal. It is also important to note that you should not delete any files or directories once the repo is downloaded. Files that may seem non-essential, probably are essential (some good examples of this are "removeList.txt", "testClass1.rb", and "driver1.rb"). If these files are deleted, the DXA won't work.
+
   6. Type the command: “cd dxaAutomation/drivers”, followed by "ruby runDXA.rb" to run the automation. Answer the questions in the terminal when they arise.
+
   7. Once the test is done, open the desired results files (the ones ending in “.csv” which are located in “dxaAutomation/results”) in Excel, and format the data as needed.
+
   *If the test does not work due to errors with removing files, delete "removeList.txt", and the contents of the results directory. Once this is done, re-run the test.
 
-Background:
-  Each tests was written in one of three ways. Given the nature of the web (a place where no two web elements are contextually similar) a significant number of the tests written rely on contextual data (“Navigation Bar Structure”, “Competitive Position”, etc. are examples of some of the tests written this way). Another notable chunk of the tests are almost fully subjective (“Website Load Speed”, “301 Redirect”, etc.). Finally, the tests that were not tackled by the former means are addressed using user input (“Calls to Action: Prominent”, “SCAN Able Content”, etc.) to determine the status of some of the more subjective points. That being said, a further explanation of the rationale/strategies behind each test is below under the “Test Explanations” section.
+## Background:
+  Each test was written in one of three ways. Given the nature of the web (a place where no two web elements are contextually similar) a significant number of the tests written rely on contextual data (“Navigation Bar Structure”, “Competitive Position”, etc. are examples of some of the tests written this way). Another notable chunk of the tests are almost fully subjective (“Website Load Speed”, “301 Redirect”, etc.). Finally, the tests that were not tackled by the former means are addressed using user input (“Calls to Action: Prominent”, “SCAN Able Content”, etc.) to determine the status of some of the more subjective points. That being said, a further explanation of the rationale/strategies behind each test is below under the “Test Explanations” section.
 
-The Future of the DXA:
+## The Future of the DXA:
 
-  From a Development Standpoint: 
-    If future development does occur on this project, then in my opinion, the best item to address next would be a user interface. At the point where the DXA was left off, everything was still terminal based. Although the commands to run the script are relatively simple, a user interface would definitely be of benefit to the primary users of this tool—salespeople. 
+  ### From a Development Standpoint:
+    If future development does occur on this project, then in my opinion, the best item to address next would be a user interface. At the point where the DXA was left off, everything was still terminal based. Although the commands to run the script are relatively simple, a user interface would definitely be of benefit to the primary users of this tool—salespeople.
     From there, the best course of action to take would be to redefine potentially unreliable tests (or increase their reliability), and develop some sort of analytics tool (graphs, models, charts that are not already included in the DXA) to visually capture the value points that we are trying to show clients.
 
-  From an Investment Standpoint:
+  ### From an Investment Standpoint:
     The automation of the DXA generates more credibility around this sales piece. Prospects are more likely to believe results that are generated by a procedural method, than by salespeople who might have varying knowledge of the DXA and the web in general.
-    Additionally, this tool is a step-forward into a domain that G5 does not fully own yet—web analysis. With reputation manager, the CMS, and our other analytics tools we specialize in providing insight to our clients on our sites, but not to others on their sites. It is more impressive to say to clients that, “we have analytical power over any site”, instead of “we have analytical power over our sites”.
+    Additionally, this tool is a step-forward into a domain that G5 does not fully own yet—web analysis. With Reputation Manager, the CMS, and our other analytics tools we specialize in providing insight to our clients on our sites, but not to others on their sites. It is more impressive to say to clients that, “we have analytical power over any site”, instead of “we have analytical power over our sites”.
     Credibility and Analytical Power, as listed above, are reasons enough to invest in further iterations of the DXA.
 
-  From a Product Standpoint:  
+  ### From a Product Standpoint:  
     The DXA automation provides analytics that are reusable in a sales and development environment. If the insight this tool provides was given to the web content team, the SEO team, or even engineering, they could each do great things with it.
     Also, a product like this might be useful in the context of the CMS. Imagine if clients has access to a tool like this. They could run this tool, and see the difference between the DXA that was shown to them at a G5 sales presentation, and a DXA after our employees have refactored their online presence. They would be extremely pleased to have a quantifiable metric as to how their site has improved because of G5.
 
-Extra Features:
-   Some of notable features that are implemented in the project are: a debug file system, a file management system, and a competition finder. 
+## Extra Features:
+  Some of notable features that are implemented in the project are: a debug file system, a file management system, and a competition finder.
   The debug file system is primarily a developer tool, which allows someone to see what is happening, and where, inside the DXA code. It allows variables, logic, and results to be visualized in a way that is more sophisticated than primitive debugging methods.
   The file management system keeps track of the DXA results of the former test and deletes the files once the next iteration of the DXA is started. It does this in order to keep the results folder manageable.
   Finally, the competition finder uses a utility called SpyFu to gather business competitors given a url that you input. It recursively performs a Breadth-First-Search to determine your most nearby competitors until a big enough competitor list is generated. It then allows the user to run the DXA on any competitors found.
 
-Notable (Potential) Features:
-    
-  SpyFu SEO Tool: SpyFu is an incredibly unique marketing research tool, which contains a plethora of analytics information (SEO, Backlinks, Competitors, Ranking Information). For more info visit: http://www.spyfu.com/seo/overview/domain?query=getg5.com and see the results generated. 
-  The notable features of this site, which could be potentially valuable additions to the DXA, are the “Top Organic Competitors” graph, and their competitor analysis tool (the section of the page where they present you with your top competitors). 
-    With these powerful analytics tools, a whole new depth could be added to the DXA in a visual sense. Even if the data is not directly pulled from this site, the way in which they visually format their information is compelling. The visual formatting of the results could potentially provide a template for how we visually format the DXA in the future.
+## Notable (Potential) Features:
 
-  Web SEO Analytics: Although most of the tools on http://www.webseoanalytics.com/free/ are only available after a monthly subscription is made, some of the tools (if they do what they say they can do) could be extremely beneficial in a sales setting.  Tools like WSA Spider, SERP Analysis, and Link Structure (which was used in one of the tests) could provide further analysis and data (than what we already provide) to convey to prospects how much their websites need G5 refactoring. 
+  SpyFu SEO Tool: SpyFu is an incredibly unique marketing research tool, which contains a plethora of analytics information (SEO, Backlinks, Competitors, Ranking Information). For more info visit: http://www.spyfu.com/seo/overview/domain?query=getg5.com and see the results generated.
+  The notable features of this site, which could be potentially valuable additions to the DXA, are the “Top Organic Competitors” graph, and their competitor analysis tool (the section of the page where they present you with your top competitors).
+  With these powerful analytics tools, a whole new depth could be added to the DXA in a visual sense. Even if the data is not directly pulled from this site, the way in which they visually format their information is compelling. The visual formatting of the results could potentially provide a template for how we visually format the DXA in the future.
+
+  Web SEO Analytics: Although most of the tools on http://www.webseoanalytics.com/free/ are only available after a monthly subscription is made, some of the tools (if they do what they say they can do) could be extremely beneficial in a sales setting.  Tools like WSA Spider, SERP Analysis, and Link Structure (which was used in one of the tests) could provide further analysis and data (than what we already provide) to convey to prospects how much their websites need G5 refactoring.
 
   Moz Local: Although the use of some of the Moz Local Tool features are not immediately apparent in the DXA, this tool offers citation data across a multitude of user review sites. Given the fact that the DXA currently analyzes only Google Plus Citations, being able to retrieve citation information from sites like Facebook, Bing, Yelp, and City Pages could potentially benefit the sales process.
 
-Developer Pick Up and Refactoring:
+## Developer Pick Up and Refactoring:
   If a developer were to pick up on this project, as said before, the best course of action would be to develop a user interface, and improve test reliability.
+
   The former would best be accomplished by using Rails, given the fact that all G5 products are mainly Rails-based. Not only would the next developer have access to G5 Rails resources/people that know Rails, but if this were handed off to someone in Engineering, that person wouldn’t have to learn a new framework in order to work with this tool.
+
   The latter should be tackled in the following way. Reliability of each test should be established, and the least reliable should be refactored/rewritten first. That is not to say that any of the tests are unreliable. They were written to best serve the contexts they reside in. But anyone who has been on the web knows that contexts change. Therefore, tests may need to be adjusted in the future to improve reliability.
-  That being said, the actual process to better the tests would be accomplished by doing something along these lines: observe contexts in which the sub-point you are testing resides, and write tests based off that context. 
+
+  That being said, the actual process to better the tests would be accomplished by doing something along these lines: observe contexts in which the sub-point you are testing resides, and write tests based off that context.
+
   For example, when the “Online Payment” test was written, it was observed that maintenance request forms were in one of three areas: a page directly linked to the home page, behind a login portal that was directly linked to the home page, or on an intermediate page between the home page and the login portal. Duly, the test searches for a resident porral input fields along the login page path (i.e: search www.coolhouses.com/home/ first, www.coolhouses.com/residents/ next, and www.logintoresidentportal.com/coolhouses/ last). Finally, search for the resident portal directly on the log in page.
+
   If there is a better way to tackle this than what I wrote, then all that needs to be done to alter this (or any test) is make needed changes to the test, and change the logic in the “each” loop of the “runDXA” function of “driver1.rb” to make all of the values passed between tests work.
 
-Explanation of Dependencies:
+## Explanation of Dependencies:
   In order to run the tests, a few dependencies need to be installed. Because I was using ruby, the libraries (dependencies) that are required in order to run the program are called “gems”. The following are the gems you need (a further explanation of how to install these gems will be included below in the “Directions to Run” section): Rubygems, Selenium WebDriver, Nokogiri, Open URI, Open URI Redirections, JSON, Google Plus, Timeout, Algorithms.
 
-Explanation of “testClass1.rb”:
+## Explanation of “testClass1.rb”:
   Each test is in an individual class. The rationale behind this is so Selenium drivers do not need to be re-declared for each test (Selenium is a browser automation framework that was included in the majority of my tests). To elaborate, there is no programmatic way to pass around drivers that are already initialized unless you use classes. And because driver initialization takes a very long time, classes are needed to speed up the process.
-  Because each test is contained within a class, they would have to share some common functions (functions are what programs use to do specialized tasks). For instance, the “write to a file”, initialization, “write to debugfile”, and “get the average score of all pages” functions are all the same, because they use the same logic. The way we tackle this in computer science is with a tactic called inheritance. 
+  Because each test is contained within a class, they would have to share some common functions (functions are what programs use to do specialized tasks). For instance, the “write to a file”, initialization, “write to debugfile”, and “get the average score of all pages” functions are all the same, because they use the same logic. The way we tackle this in computer science is with a tactic called inheritance.
   Inheritance works like this. If you inherit class B from class A, then class B contains all of class A’s functions and local variables (variables only defined within B). You can essentially reuse pre-defined functions and variables, and build your own on top of the pre-existing contents.
   How I tackled this project is to inherit each test class from a common test class, and then custom make a function called “performTest” (on top of the inherited functions) that actually runs the test. With this method you can run a loop on each of the classes and call the “performTest” method on each (since it will already be defined). The beauty of this is that “performTest” does a different thing in each test context, and those “similar” inherited functions do the same thing in each test context. There are enough similarities to run the test classes in the same way and reuse logic, but enough differences so that they can tackle different things.
 
-Explanation of “driver1.rb”:
-  The way that driver works is to first set everything up (get all home page links, home page url, @@bizName, zip code, and file names that the program will eventually write to, and initialize results and debug file correctly), initialize all of the test classes in a list, and then loop through that list and call “performTest” on each class. The loop also includes a “case” statement, that allows for values to be passed around amongst the tests. 
+## Explanation of “driver1.rb”:
+  The way that driver works is to first set everything up (get all home page links, home page url, @@bizName, zip code, and file names that the program will eventually write to, and initialize results and debug file correctly), initialize all of the test classes in a list, and then loop through that list and call “performTest” on each class. The loop also includes a “case” statement, that allows for values to be passed around amongst the tests.
   For example, if test 30 needs a value that test 26 has, then the program tests to see if the loop iteration is 26. If it is it sets the value. If the loop iteration is 30, it then used the previously set value. With this method tests can pass around values that they normally could not.
   If one was to add on to the DXA automation, all they would need to do is add the test to the list, and adjust the arguments in the “case” statement so that the values can be passed around correctly.
 
-Explanation of Each Test:
+## Explanation of Each Test:
 
   For each test a unique test name, @testName, is defined. This can then be used to write the results to the file using testClass1.rb’s “writeScore” function, and can be used to log debug errors using testClass1.rb’s “logDebug” function.
   For each instance of “performTest”—where the work is being done, the debug file is initialized using @testName, so information can then be written to that file in the correct format. Also, it is implied that after every test, the score is written to the file, so no explanation will mention that step.
@@ -90,7 +105,7 @@ Explanation of Each Test:
     6. @@logFile: A globally defined string that holds the name of the debug log file. This is hardcoded, and can be changed.
     7. @@zipCode: A globally defined integer that hold the zip code of the business. This is defined in the beginning of driver1.rb
 
-  #1 Rank: Branded Search ():
+  no.1 Rank: Branded Search ():
     This test loads a Google search page, inputs @@bizName into the search bar, and loads the results. It tests to see if the first result belongs to the business by comparing urls. If the first result belongs to the business the test passes.
     1. Load Google.
     2. Input @@bizName into the search bar, and load results.
@@ -104,18 +119,18 @@ Explanation of Each Test:
     2. Sleep script for enough time for a 301 redirect to take place.
     3. Compare the current driver url to the one loaded, @@url. If there is a match, fail the test. If there isn’t a match, pass the test (a 301 took place).
 
-  Content Per Page ():
+  ## Content Per Page ():
     This test loops through each of the pages in @@allLinks. It rips the text from each element on the page. This takes a while, so if the text rip takes too long, then the page score is set to 0. If the amount of distinct, valid text (text hasn’t been encountered before and the text is non-empty and has no tags inside of it) is greater than 250 words then the page score is set to 1. If there is not enough, set the page score as 0. Once the loop is done average the score of all the pages, and set the total score as the average.
     1. Loop through each page in @@allLinks:
-      1. Set a manual timeout to occur.
-      2. Loop through all elements:
-        1. Append valid element text (non-empty, not already inputted, and without html tags) into a “bulk” text string.
-        2. Test to see if the bulk string has over 250 words. If it has enough, append score list with a 1 (page passed) and go to the next page.
-        3. If the timeout occurs or the element loop exits and the page was not passed, append the score list with a 0 (page failed) because ripping the text took too long, or there was not enough on the page.
-        4. Clear the bulk string, reset Booleans and hashes.
+      - Set a manual timeout to occur.
+      - Loop through all elements:
+        - Append valid element text (non-empty, not already inputted, and without html tags) into a “bulk” text string.
+        - Test to see if the bulk string has over 250 words. If it has enough, append score list with a 1 (page passed) and go to the next page.
+        - If the timeout occurs or the element loop exits and the page was not passed, append the score list with a 0 (page failed) because ripping the text took too long, or there was not enough on the page.
+        - Clear the bulk string, reset Booleans and hashes.
     3. Once each page is read, set the score as the average of the score list.
-      
-  Linking Strategy ():
+
+  ## Linking Strategy ():
     For this test, a tool called URL analyzer is used on a site called Web SEO Analytics. It is used to measure the number of links on your whole site (both valid and broken). The test involves opening the web page, inputting the url, and setting an explicit wait for the results to appear. If they do not appear it fails the test. If they do appear, then grab the results and see if there are enough links.
     1. Load Web SEO Analytics link structure analyzer.
     2. Find the input section and submit button. If any of these can’t be found, the test is failed.
@@ -124,75 +139,76 @@ Explanation of Each Test:
     5. Rip text from the results bar, and find the valid link number.
     6. Test to see if that number is bigger than 10. If so, pass the test. If not, fail the test.
 
-  Title Tag Strategy:
- This test loops through each of the pages in @@allLinks and does the following. It resets the encoding of the page if it is incorrect. The keywords are then found, formatted, and moved into a list. The title tag is then found, and formatted. The test checks to see if any keywords, or @@bizName is in the title. If either of these is present, the page score is set to 0. If they are not, the page score is set to 1. Once all pages are looped through, the score is set as the average of all the pages.
+## Title Tag Strategy:
+   This test loops through each of the pages in @@allLinks and does the following. It resets the encoding of the page if it is incorrect. The keywords are then found, formatted, and moved into a list. The title tag is then found, and formatted. The test checks to see if any keywords, or @@bizName is in the title. If either of these is present, the page score is set to 0. If they are not, the page score is set to 1. Once all pages are looped through, the score is set as the average of all the pages.
     1. Loop through each page in @@allLinks:
-      1. Check if page encoding is correctly set. If not, set it correctly.
-      2. Open the page source of the current link using Nokogiri.
-      3. Find the meta tag with keywords contained in it in the page source.
-      4. If the keyword meta tag exists, puts the keywords from the meta tag into a list.
-      5. Find the title tag.
-      6. If title tag is missing or empty, then the page fails.
-      7. Loop through the keywords:
-        1. If the keyword is contained within the title, fail the page and exit the keyword loop.
-      8. Test to see if @@bizName is included in the title, if so the page fails.
-      9. If the page was not failed up to this point, then append the score list with a 1 (no keywords or @@bizName were found within the title).
+      - Check if page encoding is correctly set. If not, set it correctly.
+      - Open the page source of the current link using Nokogiri.
+      - Find the meta tag with keywords contained in it in the page source.
+      - If the keyword meta tag exists, puts the keywords from the meta tag into a list.
+      - Find the title tag.
+      - If title tag is missing or empty, then the page fails.
+      - Loop through the keywords:
+        - If the keyword is contained within the title, fail the page and exit the keyword loop.
+      - Test to see if @@bizName is included in the title, if so the page fails.
+      - If the page was not failed up to this point, then append the score list with a 1 (no keywords or @@bizName were found within the title).
+
     2. Once each page is read, set the score as the average of all the page scores.
 
-  URL Structure Strategy:
+## URL Structure Strategy:
     This test loops through each of the pages in @@allLinks and tests each url on various criteria. If tests the length of the url, and marks it down for every extra character that the url has over 30 characters. It checks for the number of “bad” characters in the url and marks it down for every one that it finds. Finally, it finds, formats, and puts keywords into a list, and tests to see if any keywords are in the url. It marks it down the score for each keyword found. It then sets the page score as the average score of these three criteria. Once each page is looped the final score is set as the average of all page scores.
     1. Loop through @@allLinks:
-      1. Check if page encoding is correctly set. If not, set it correctly.
-      2. Get page source of the current link.
-      3. Test to see if the length of the url is over 30. For any urls whose length is over 30, mark down the score for that page.
-      4. Loop through a list of bad characters:
-        1.  Mark down the url for each bad character found.
-      5. Search for a meta tag containing keywords.
-      6. If there are keywords in the page source then format them, and read them into a list.
-      7. Loop through keywords (if they exist):
-        1. For each keyword found mark down the score.
-      8. Append the score list with the average of all three scores (length, bad characters, and keyword scores).
-    2. Set the test score as the average of the score list.
+      - Check if page encoding is correctly set. If not, set it correctly.
+      - Get page source of the current link.
+      - Test to see if the length of the url is over 30. For any urls whose length is over 30, mark down the score for that page.
+      - Loop through a list of bad characters:
+        - Mark down the url for each bad character found.
+      - Search for a meta tag containing keywords.
+      - If there are keywords in the page source then format them, and read them into a list.
+      - Loop through keywords (if they exist):
+        - For each keyword found mark down the score.
+      - Append the score list with the average of all three scores (length, bad characters, and keyword scores).
+    - Set the test score as the average of the score list.
 
-  Home Page Header Tag 1: 
+## Home Page Header Tag 1:
     This test checks the encoding of the home page source, and resets it if it is incorrect. It then gets the keywords from the page source and puts them into a list (if there are any). It gets the page’s h1, and formats it. If it does not exist, then the test fails. It then tests to see if any keywords or @@bizName is in the header. If there are, then the test is failed. If not, it is passed.
     1. Check if page encoding is correctly set. If not, set it correctly.
     2. Find keywords:
-      1. Search for a meta tag that contains keywords.
-      2. If a keyword meta tag exists, put keywords into a list.
+      - Search for a meta tag that contains keywords.
+      - If a keyword meta tag exists, put keywords into a list.
     3. Get h1 from the home page source.
     4. Using the keywords and the h1, score header:
-      1. Loop through keywords:
-        1. If a keyword is found return a 0 as the test score.
-      2. Test to see if the @@bizName is in the headers. If so return a 0 as the test score.
-      3. If the score wasn’t already returned then return a 1 because no keywords or @@bizName was found in the header (header passed).
+      - Loop through keywords:
+        - If a keyword is found return a 0 as the test score.
+      - Test to see if the @@bizName is in the headers. If so return a 0 as the test score.
+      - If the score wasn’t already returned then return a 1 because no keywords or @@bizName was found in the header (header passed).
 
-  Home Page Header Tag 2:
-    *This test is a continuation of the former test.
+## Home Page Header Tag 2:
+    *This test is a continuation of the former test.*
     This test gets the page’s h2, and formats it. If it does not exist, then the test fails. It then tests to see if any keywords or the @@bizName is in the header. If there are, then the test is failed. If not, it is passed.
     1. Get h2 from the home page source.
     2. Using the keywords and the h2, score header:
-      1. Loop through keywords:
-        1. If a keyword is found return a 0 as the test score.
-      2. Test to see if @@bizName is in the headers. If so return a 0 as the test score.
-      3. If the score wasn’t already returned then return a 1 because no keywords or @@bizName was found in the header (header passed).
+      - Loop through keywords:
+        - If a keyword is found return a 0 as the test score.
+      - Test to see if @@bizName is in the headers. If so return a 0 as the test score.
+      - If the score wasn’t already returned then return a 1 because no keywords or @@bizName was found in the header (header passed).
 
-  Unique Header Tags:
+  ## Unique Header Tags:
     This test loops through @@allLinks and test to see if any unique headers are found on any page. First, it checks to make sure that the current page encoding is correct, and resets it if it is not. It then finds and formats headers until there are no more to be found (i.e: find all h1’s, then h2’s, until no more types of headers can be found). If there are no headers then set the page score as zero. As it’s finding headers, it checks to make sure the current header has not already been used. If it has, it sets the page score as 0. If it makes it all the way through the loop then that means that there were no duplicates (set the page score as 1). After all pages are looped through, the score is set as the average of all page scores.
     1. Loop through @@allLinks:
-      1. Get page source using Nokogiri.
-      2. Find headers until there are no more to be found (h1, h2,…,h5) using an “while” loop:
-        1. Test to see if hash (used to hold previously found headers) contains the current header. If so, return a failing grade for page and set the page score as a 0.
-      3. If failing grade was not returned, return a passing grade (all headers are distinct), and set the page score as a 1.
+       - Get page source using Nokogiri.
+       - Find headers until there are no more to be found (h1, h2,…,h5) using an “while” loop:
+         - Test to see if hash (used to hold previously found headers) contains the current header. If so, return a failing grade for page and set the page score as a 0.
+       - If failing grade was not returned, return a passing grade (all headers are distinct), and set the page score as a 1.
     2. Set the score as the average grade of all pages.
 
   Image ALT Text:
     This test loops through @@allLinks and loops through each image that is on the page. For each image that has a non-empty alt text field it increments a value. After all of the page’s images are looped through, a ratio is obtained by dividing the incremented number by the total number of images. If the ratio is above a certain threshold, the page score is set to 1. If it is not, it is set to 0. Once all pages are looped through, the score is set as the average of all pages.
     1. Loop through @@allLinks:
-      1. Load link.
-      2. Loop through all images on page:
-        1. Test to see if alt text field of image is non-empty. If so, increment a ratio value.
-      3. Divide ratio number by total number of page images to achieve a ratio. If the ratio is greater than 0.75, append a score list with 1. If not, append a score list with 0.
+      - Load link.
+      - Loop through all images on page:
+        - Test to see if alt text field of image is non-empty. If so, increment a ratio value.
+      - Divide ratio number by total number of page images to achieve a ratio. If the ratio is greater than 0.75, append a score list with - If not, append a score list with 0.
     2. Set total score as average of the score list.
 
   Google+ Owner Verified:
@@ -200,7 +216,7 @@ Explanation of Each Test:
     1. Initialize ‘google_plus’ requirements (object initialization, reading and setting of API key).
     2. Perform a get request using Google Plus ID to retrieve person hash.
     3. Test if person is verified. If so, pass the test. If not fail the test.
-   
+
   Google+ Link to Website:
     *This is a continuation of the former test.
     For this test the program attempts to find the citation portion of the Google+ page. The program finds the container which hold the links to the home page. If the container does not exist, the test fails. If it does, then it loops through all the urls found within the container. If there is a match between @@url and any of the found urls then the test passes. If not, the test fails.
@@ -231,7 +247,7 @@ Explanation of Each Test:
     5. Search results for @@bizName:
       1. Loop through each result:
         1. If the names match, append the result to a refined result list.
-      2. If the refined results list is empty, return a :NO_MATCH flag and fail the test. 
+      2. If the refined results list is empty, return a :NO_MATCH flag and fail the test.
       3. If the list has a single element in it, then return the result and a :FOUND flag to signal that a single result was isolated and continue the test. If there is more than one result, then return the list and a :SEARCH_AGAIN flag, to signal that the results need to be refined more.
     5. If another search is needed, search the returned list by zip code:
       1. Since @@bizName is already matched, attempt to match by @@zipCode. If there is a match, then assume that result is the correct listing and return that listing.
@@ -252,7 +268,7 @@ Explanation of Each Test:
     1. Ask the user whether the home page, @@url, is designed to engage traffic in a loop (in case of invalid input):
       1. If they answer “yes”, the test is passed. If they answer no, the test is failed. They can also enter a number from 0 to 10 to describe its ability to engage traffic. If the number is bigger than 10 it will be set to 10. The score is then set based off that number or whether they inputted “yes” or “no”.
 
-  Ad Copy Specific to Market: 
+  Ad Copy Specific to Market:
     This test uses the page source of the home page to see if adwords (or any similar scripts) are being used. If there are any of these strings present in the page’s scripts, then the test is passed. If not, the test is failed.
     1. Using Nokogiri, find all of the scripts in @@url’s page source.
     2. Test to see if the strings: “googlesyndication”, “doubleclick.net”, or “bat.js” are in any of the scripts. If so, pass the test.
@@ -304,7 +320,7 @@ Explanation of Each Test:
     1. Open the page source of a reputation manager API call (a url with a reputation manager ID entered) by inputting the reputation manager ID (read from a file) into the url before getting the page source.
     2. Rip and parse the text of the page and convert into a hash.
     3. Set score as the hash’s Google+ score divided by a hundred (to normalize it).
-    
+
   ApartmentRatings:
     *This is a continuation of the former test.
     This test uses the same object as the former test, but retrieves different info from it.
@@ -358,10 +374,10 @@ Explanation of Each Test:
             1. If there is a match with the current element’s tag name, attribute and term, then test to see if the element’s parent has links in it. If it does, then append the parent to a list of potential parents.
       2. Return the parent list. If the list is empty the test fails.
     5. If the primary search was successful, get the links from the navigation bar:
-      1. Loop through each element of the navigation bar: 
+      1. Loop through each element of the navigation bar:
         1. If the element has a non-empty href attribute than append a url list with the href.
       2. Return the list.
-    6. If you have a list of potential navigation bars from the secondary search, get the links from the first link-containing element: 
+    6. If you have a list of potential navigation bars from the secondary search, get the links from the first link-containing element:
       1. Loop through the potential navigation bars:
         1. If the current navigation bar has any links then return those links. If not, raise an error and fail the test.
     7. Test if the number of links grabbed from the navigation bar  (retrieved from either the primary or secondary test) is greater than or equal to six. If it is, then pass the test. If not, fail the test.
@@ -377,8 +393,8 @@ Explanation of Each Test:
 
   Clear and Informative Headings:
     Loop through each page in @@allLinks. For each link check to make sure that the encoding is correct, and reset it if it is not. In a loop, grab all the header text from each page (unique or non-unique) until no more headers can be found. Once this is done, return the bulk header text of that page and append another bulk string (used for the header text of all @@allLinks pages) with the text captured from the page. Once all the header text is grabbed. If the bulk text string used for all @@allLinks pages is less than 40, the test is failed. Load an online grammar checker named Grammarly. Input all of the header text into the text input box, and instruct the user to read the header text and consider its level of clarity and its ability to inform. If the input/submit elements cannot be located then the test fails. The user is then instructed to generate the results and consider the number of errors/plagiarism issues. Finally the user is asked to grade both the clarity and ability to inform of the header text. The user is then asked to describe the text as “clear” or “unclear”. If the user answers “clear” then a temp score is set to 1. If the user answers “unclear”, a temp score is set to 0. Additionally, the user may enter a number to describe the level of clarity of the header text. If the number is over 10, the temp score is set to 10. The user is then asked to describe the text as “informative” or “not informative”. If the user answers “informative” then a temp score is set to 1. If the user answers “not informative”, a temp score is set to 0. Additionally, the user may enter a number to describe the text’s ability to inform. If the number is over 10, the temp score is set to 10. The final score is then set as the normalized average of the two temp scores (the average of the clarity score and the informative score divided by 10).
-    1. Loop through @@allLinks: 
-      1. Get headers and number of headers from current page: 
+    1. Loop through @@allLinks:
+      1. Get headers and number of headers from current page:
         1. Redefine encoding if encoding isn’t “utf-8”.
         2. Get page source using Nokogiri.
         3. In a loop, get headers (h1, h2,…, h7), until there are no more to be gotten:
@@ -399,9 +415,9 @@ Explanation of Each Test:
     1. Ask the user whether the home page, @@url, has SCAN Able Content:
       1. If they answer “yes”, the score is set to 10. If they answer “no”, the score is set to 0. They can also enter a number from 0 to 10 to describe the pages “SCANability”. If the number is bigger than 10 it will be set to 10. The score is then set based off that number or whether they inputted “yes” or “no”.
 
-  Content Readability: 
+  Content Readability:
      This test loops through @@allLinks and grabs the text from each element. It appends a bulk text string with the found text and tests to see if the bulk string has more than 500 words (more than enough words to score content readability). If it has enough it exits the loop and continues. Upon exiting the loop, either the bulk text string contains at least 500 words, or all of the text from the website was grabbed (the only other reason for the loop to exit). The test then loads an online readability tool and attempts to input the text into the tool’s text area to be graded. If there is an error with loading the page, or with finding the input areas the test fails. Once the text is inputted, the results auto generate. An explicit wait for the results occurs. If the results container is not found, the test is failed. Once the results appear, the text is grabbed and the readability score is returned. If the number is between an upper and a lower bound of readability (according to the Flesch-Kincaid readability standards), the test passes. If not, the test fails.
-    
+
     1. Score all text for readability:
       1. Loop through @@allLinks:
         1. Load page.
@@ -420,7 +436,7 @@ Explanation of Each Test:
       2. Test to see if the page source contains the string “.swf”, which is a flash extension. If it does, fail the test.
     2. If all the links have no flash, then pass the test.
 
-  Automatic Audio/Video: 
+  Automatic Audio/Video:
     *This test uses a Boolean passed from the former test to indicate whether there was flash found.
     This test takes the returned value from the former test and alerts the user that the presence of auto-play is highly likely if the flash flag was true. It then loops through @@allLinks and asks the user if there is auto-play on the current page. If the user answers “yes” the test fails. If the user answers “no”, the loop continues. The user also has the option to auto pass/fail the test on every loop iteration. If the user auto passes/fails the test then the test passes/fails respectively. If the loop exits and the test was not failed, the test passes.
     1. If a there was flash found on the former tests then alert the user that this site likely has auto-play.
@@ -462,7 +478,7 @@ Calls to Action on Every Page:
       5. Identify the input scheme that the application link has:
         1. Find buttons on page:
           1. Loop through each tag name in the table:
-            1. Loop through all found elements on the page with that tag name: 
+            1. Loop through all found elements on the page with that tag name:
               1. Loop through all attribute types in the table:
                 1. Loop through all terms in the table:
                   1. If the element has a good-button format and the tag name, attribute, and term match up then append it to a list. Increment a count as well.
@@ -476,7 +492,7 @@ Calls to Action on Every Page:
             2. Test to see if the current element has an href with “.pdf” in it. If it does, increment a count.
         4. Find all bad input buttons:
           1. Loop through each tag name in the table:
-            1. Loop through all found elements on the page with that tag name: 
+            1. Loop through all found elements on the page with that tag name:
               1. Loop through all attribute types in the table:
                 1. Loop through all terms in the table:
                   1. If there is a match with tag name, attribute, and term, and if it has a bad-button format then see if its “type” attribute is non-blank. If it is, then append it to a list and increment a count.
@@ -488,7 +504,7 @@ Calls to Action on Every Page:
         9. Return a :NONE flag to identify that there was no type of input scheme. Append the score list with a 0.
     5. Set the score as the minimum of the score list (the worst submit scheme a user will possibly encounter).
 
-  Guest Card Requirements: 
+  Guest Card Requirements:
     This test loads @@url and attempts a primary search to find a “contact” link (an anchor tag with the words “contact” in the text). If one was found, it is used as the main “contact” link (returned as a single member of a list, which will make sense later). If there is no “contact” link, the program tries a secondary search to find “contact” links amongst @@allLinks. If any are found amongst @@allLinks (any that contain certain specified terms) they are appended to a list of potential contact links. Regardless of whether the list of “contact” links was found in the primary or secondary search, loop through the list of “contact” links and find the type of submit scheme each has. Find the number of buttons, inputs, bad buttons, selects, and pdf’s on the page. If the page has at least 3 valid buttons and at least 3 valid input fields, then return a :INPUT_SUBMIT flag, and append the score list with a 1. If there is at least one valid button and at least one submit, return a :SELECT_SUBMIT flag, and append the score list with a 0.5. If there is more than one button but no submits return a :BAD_INPUT flag and append the score list with a 0.5. If there is more than one pdf found, return a :PDF flag and append the score list with a 0.5. If the page met none of these cases, then return a :NONE flag, and append the score list with a 0. Once all “contact” pages are looped, set the score as the minimum of the score list (the worst guest card portal a user could possibly encounter).
 
     1. Load @@url.
@@ -498,7 +514,7 @@ Calls to Action on Every Page:
         2. If no anchor tag is returned then return a :NOT_FOUND flag.
       2. Return the list of potential “contact” links.
     2. Determine which contact links are the most probable to be the actual link:
-      1. Loop through the potential links: 
+      1. Loop through the potential links:
         1. If the actual link text has “contact” in it then append it to another list.
       2. If the list is empty, return a :NOT_FOUND flag and fail the test.
       3. Return the list.
@@ -507,7 +523,7 @@ Calls to Action on Every Page:
       1. Test to see what type of submit scheme the page has using button attribute tables:
         1. Find buttons on the page:
           1. Loop through each tag name in the table:
-            1. Loop through all found elements on the page with that tag name: 
+            1. Loop through all found elements on the page with that tag name:
               1. Loop through all attribute types in the table:
                 1. Loop through all terms in the table:
                   1. If the element has a good-button format and the tag name, attribute, and term match up then append it to a list. Increment a count as well.
@@ -521,7 +537,7 @@ Calls to Action on Every Page:
           2. Test to see if the current element has an href with “.pdf” in it. If it does increment a count.
       4. Find all bad input buttons:
         1. Loop through each tag name in the table:
-          1. Loop through all found elements on the page with that tag name: 
+          1. Loop through all found elements on the page with that tag name:
             1. Loop through all attribute types in the table:
               1. Loop through all terms in the table:
                 1. If there is a match with tag name, attribute, and term, and if it has a bad-button format then see if its “type” attribute is non-blank. If it is, then append it to a list and increment a count.
@@ -576,7 +592,7 @@ Calls to Action on Every Page:
     6. Return the search flag, primary link, and secondary link for use in the later tests.
 
   Mobile Device Payments:
-    *This test uses values passed from the former test. 
+    *This test uses values passed from the former test.
     This test uses the flags and links passed from the former test, to determine whether the resident portal the site uses (if any), is mobile compatible. If no resident portal is found, the test fails. The test then uses the Google Mobile Compatibility tester (loads the utility with a dynamically entered url as a parameter to auto-generate the results) to see if the resident portal login page is mobile friendly. If the test does not load correctly, it tries one more time. If it is, and the portal is internal, the user is then asked whether the resident portal has online payment functionality (if the page is not internal, the test passes). If the user answers “yes”, the test is passes. If not, the test fails. Additionally, if the portal is not mobile friendly, the test fails. Finally, if the Mobile Compatibility test page fails to load during the second attempt, the test fails.
     1. Test to see if search flag is :NONE. If it is, fail the test because there is no online portal.
     2. Configure the link to auto generate mobile compatibility results for the resident portal (input the resident portal url as a link parameter).
@@ -655,7 +671,7 @@ Calls to Action on Every Page:
         2. If there is no resident link then return a nil value to signal that no link was found. Stop the home page search and fail the test.
       3. Load the found calendar link.
       4. Test to see if the current page has any table elements on it. If it has any, pass the test. If it doesn’t, then fail the test.
-     
+
   Website Analytics:
     For this test, page encoding is checked and reset if needed, and all of the scripts in @@url’s page source are looped through. The program then tests to see if a common pattern (that is found in Google Analytics scripts) is present in any of the scripts on the page. If one is found, the test passes (the page has a Google Analytics script). If none are found, the test fails (the page does not have a Google Analytics script).
     1. Check if page encoding is correctly set. If not, set it correctly.
@@ -726,4 +742,3 @@ Calls to Action on Every Page:
     *All this test does is use a Boolean flag passed from the former test.
     For this test the Boolean passed in is tested to be true or not. If it is it means that a call tracking number was used, and therefore, dynamic phone numbers were used (the test passes). If the flag is not true, dynamic phone numbers were not used (the test fails).
     1. If the flag passed from the former test is true, then pass the test (if there are call tracking numbers used then there are dynamic phone numbers used as well). If the flag is false, fail the test.
-
