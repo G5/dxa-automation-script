@@ -31,12 +31,12 @@ def askForInfo
     print ">>>Please enter the Google+ page url of the business (the format must be \"https://plus.google.com/<21-digit-google-plus-code>/about\"): "
     input = gets.chomp.delete(" ").downcase
 
-    until input =~ /^((http[s]?:\/\/plus.google.com\/[\d]{21}\/?(about\/?)?))$/
-      print "Invalid input (the url must be of the format \"https://plus.google.com/<21-digit-google-plus-code>/about\"). Please re-enter the url: "
-      input = gets.chomp.delete(" ").downcase
-    end
+    # until input =~ /^((http[s]?:\/\/plus.google.com\/[\d]{21}\/?(about\/?)?))$/
+    #   print "Invalid input (the url must be of the format \"https://plus.google.com/<21-digit-google-plus-code>/about\"). Please re-enter the url: "
+    #   input = gets.chomp.delete(" ").downcase
+    # end
 
-    gPlusID = (input.dup.scan(/[\d]{21}/))[0] 
+    gPlusID = (input.dup.scan(/[\d]{21}/))[0]
 
     print ">>>Please enter the zip code of the business: "
     input = gets.chomp.delete(" ").downcase
@@ -65,11 +65,11 @@ def askForInfo
 end
 
 def findComp(driver, wait, mainURL, urlQueue, urlSplay, avoidURL)
-  # 1. Check if size is reached or competitors not found, exit if so. 
+  # 1. Check if size is reached or competitors not found, exit if so.
   # 2. Search for url's competition.
   # 3. Push all urls into Queue and Splay. Only push to queue/splay if elem does not exist in either.
   # 4. Call findCompetition on popped urls in loop with bfsTol decremented.
- 
+
   return if (urlSplay.size >= 15) or (loadSpyFu(driver, mainURL, wait) == false)
 
   findURLs(driver).each do |url|
@@ -83,23 +83,23 @@ def findComp(driver, wait, mainURL, urlQueue, urlSplay, avoidURL)
 
   until urlQueue.empty?
     findComp(driver, wait, urlQueue.pop, urlQueue, urlSplay, avoidURL)
-    
+
     return if urlSplay.size >= 15
-  end	
+  end
 end
 
 def findURLs(driver)
   urls = (driver.find_element(:class, "domain-overview-top-competitors-graph").text.split("\n"))[0]
   urls = urls.split(".com").each {|url| url << ".com"}
   return urls
-end	
+end
 
 def formatURLs(urlRunList)
   tmp = []
 
   urlRunList.each do |url|
     tmp << ("http://www." + url.gsub("www.", "").gsub(/(http[s]?:\/\/)/, ""))
-  end  
+  end
 
   return tmp.dup
 end
@@ -121,17 +121,17 @@ def generateFiles(compTable)
   if File.exist? ("removeList.txt")
 
     File.read("removeList.txt").split(",").each do |fileName|
-      
+
       if File.exist?("../results/" + fileName)
         system "rm ../results/#{fileName}"
       end
-    end 
+    end
 
-    system "rm removeList.txt" 
+    system "rm removeList.txt"
   end
 
   system "touch removeList.txt"
-  
+
   compTable.each do |bizInfo|
 
     if File.exist?("../results/#{bizInfo[1].delete(" ")}Results.csv")
@@ -181,9 +181,9 @@ def getCompTable(urlSplay)
     input.split(",").each {|num| tmp << num.to_i}
     input = tmp.dup.uniq.sort
     count = 1
-    
+
     urlSplay.each do |url|
-      
+
       if input.include? count
         urlRunList << url[0]
       end
@@ -197,7 +197,7 @@ def getCompTable(urlSplay)
     print "Do you wish to continue? Please enter \"yes\" to continue or \"no\" to revise the list: "
     input = gets.chomp.delete(" ").downcase
 
-    until input =~ /^((yes)|(no))$/ 
+    until input =~ /^((yes)|(no))$/
       print "Invalid input. Please enter \"yes\" to continue or \"no\" to revise the list: "
       input = gets.chomp.delete(" ").downcase
     end
@@ -212,7 +212,7 @@ def getCompTable(urlSplay)
   end
 
   return getInfo(urlRunList)
-end  
+end
 
 def getInfo(urlRunList)
   compTable = []
@@ -221,10 +221,10 @@ def getInfo(urlRunList)
   promptTable = [["Name", :NON_EMPTY], ["Google+ page url", :GOOGLE_PLUS], ["Zip code", :ZIP_CODE]]
 
   urlRunList.each do |url|
-    bizAttribs << url 
+    bizAttribs << url
     puts ">>>For the url #{url}:"
 
-    loop do 
+    loop do
 
       promptTable.each do |prompt|
         print "#{prompt[0]} of the business: "
@@ -244,10 +244,10 @@ def getInfo(urlRunList)
         when :GOOGLE_PLUS
           input = input.delete(" ").downcase
 
-          until input =~ /^((http[s]?:\/\/plus.google.com\/[\d]{21}\/?(about\/?)?))$/
-            print "Invalid input (the url must be of the format \"https://plus.google.com/<21-digit-google-plus-code>/about\"). Please re-enter the #{prompt[0].downcase}: "
-            input = gets.chomp.delete(" ").downcase
-          end
+          # until input =~ /^((http[s]?:\/\/plus.google.com\/[\d]{21}\/?(about\/?)?))$/
+          #   print "Invalid input (the url must be of the format \"https://plus.google.com/<21-digit-google-plus-code>/about\"). Please re-enter the #{prompt[0].downcase}: "
+          #   input = gets.chomp.delete(" ").downcase
+          # end
 
           input = (input.scan(/[\d]{21}/))[0]
           tmp << input.dup
@@ -280,7 +280,7 @@ def getInfo(urlRunList)
 
       if input.include? "yes"
         break
-      
+
       else
         tmp.clear
       end
@@ -291,26 +291,26 @@ def getInfo(urlRunList)
     bizAttribs.flatten!
     compTable << bizAttribs.dup
     bizAttribs.clear
-  end  
+  end
 
   return compTable
 end
 
 def loadSpyFu(driver, url, wait)
   driver.get "http://www.spyfu.com/overview/domain?query=#{url}"
-  
+
   begin
     wait.until { driver.find_element(:class => "domain-overview-top-competitors-header").displayed? }
-  
+
   rescue
     return false
   end
 
   return true
-end	
+end
 
 driver = Selenium::WebDriver.for :firefox
-wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+wait = Selenium::WebDriver::Wait.new(:timeout => 30)
 
 compTable = []
 mainURL, bizName, gPlusID, zipCode = askForInfo

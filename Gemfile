@@ -1,0 +1,7 @@
+gem 'pry'
+gem 'selenium-webdriver', '~> 2.53'
+gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
+gem 'open_uri_redirections', '~> 0.2.1'
+gem 'algorithms', '~> 0.6.1'
+gem 'json', '~> 1.8', '>= 1.8.3'
+gem 'google_plus', '~> 0.2.4'
